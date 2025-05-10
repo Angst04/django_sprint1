@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 posts = [
     {
         'id': 0,
@@ -43,13 +44,23 @@ posts = [
     },
 ]
 
+
 def index(request):
     return render(request, 'blog/index.html', {'posts': posts})
+
 
 def post_detail(request, id):
     post = next((p for p in posts if p['id'] == id), None)
     return render(request, 'blog/detail.html', {'post': post})
 
+
 def category_posts(request, category_slug):
     category_posts = [p for p in posts if p['category'] == category_slug]
-    return render(request, 'blog/category.html', {'posts': category_posts, 'category_slug': category_slug})
+    return render(
+        request,
+        'blog/category.html',
+        {
+            'posts': category_posts,
+            'category_slug': category_slug
+        }
+    )
